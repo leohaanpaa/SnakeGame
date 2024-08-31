@@ -34,6 +34,7 @@ function createBoard() {
     }
 }
 
+//generates the game
 function StartGame() {
     let squares = document.querySelectorAll(".grid div");
     randomApple(squares);
@@ -45,4 +46,34 @@ function StartGame() {
     currentIndex = 0;
     currentSnake.forEach((index) => squares[index].classList.add("snake"));
     interval = setInterval(moveOutcome, intervalTime);
+}
+
+//checks for hits
+function moveOutcome() {
+    let squares = document.querySelectorAll(".grid div");
+    if (checkForHits(squares)) {
+        alert("you hit something");
+        popup.style.display = "flex";
+        return clearInterval(interval);
+        } else {
+            moveSnake(squares);
+    }
+}
+
+
+//moves the snake
+function moveSnake(squares) {
+    let tail = currentSnake.pop();
+    squares[tail].classList.remove("snake");
+    currentSnake.unshift(currentSnake[0] + direction);
+//movement ends here
+    eatApple(squares, tail);
+    squares[currentSnake[0]].classList.add("snake");
+}
+
+function checkForHits(squares) {
+    if (
+        (currentSnake[0] + width >= width * width && direction === width) ||
+        (currentSnake[0])
+    )
 }
