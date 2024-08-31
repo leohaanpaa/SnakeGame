@@ -94,5 +94,44 @@ function eatApple(squares, tail) {
         currentSnake.push(tail);
         randomApple(squares);
         score++;
-        scoreDisplay
+        scoreDisplay.textContent = score;
+        clearInterval(interval);
+        intervalTime = intervalTime * speed;
+        interval = setInterval(moveOutcome, intervalTime);
+    }
+}
+
+//
+function randomApple(squares) {
+    do {
+        appleIndex = Math.floor(Math.random() * squares.length);
+    } while (squares[appleIndex].classList.contains("snake"));
+    squares[appleIndex].classList.add("apple");
+}
+
+//controls
+function control(e) {
+    if (e.keycode ===  39) {
+        direction = 1; //right
+    } else if (e.keycode === 38) {
+        direction = -width; //up
+    } else if (e.keycode === 37) {
+        direction = -1; //left
+    }else if (e.keycode === 40) {
+        direction = +width; //down
+    }
+}
+
+//controls to pc
+up.addEventListener("click", () => (direction = -width));
+bottom.addEventListener("click", () => (direction = +width));
+left.addEventListener("click", () => (direction = -1));
+right.addEventListener("click", () => (direction = 1));
+
+//replay function
+function replay() {
+    grid.innerHTML = "";
+    createBoard();
+    StartGame();
+    popup.style.display = "none";
 }
