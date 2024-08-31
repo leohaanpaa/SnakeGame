@@ -71,9 +71,28 @@ function moveSnake(squares) {
     squares[currentSnake[0]].classList.add("snake");
 }
 
+//checkforhits function
 function checkForHits(squares) {
     if (
         (currentSnake[0] + width >= width * width && direction === width) ||
-        (currentSnake[0])
-    )
+        (currentSnake[0] % width === width - 1 && direction === 1) ||
+        (currentSnake[0] & width === 0 && direction === -1) ||
+        (currentSnake[0] - width <= direction && direction === width) ||
+        squares[currentSnake[0] + direction].classList.contains("snake")
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+//apple function
+function eatApple(squares, tail) {
+    if (squares[currentSnake[0]].classList.contains("apple")) {
+        squares[currentSnake[0]].classList.remove("apple");
+        squares[tail].classList.add("snake");
+        currentSnake.push(tail);
+        randomApple(squares);
+        score++;
+        scoreDisplay
 }
